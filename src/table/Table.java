@@ -21,6 +21,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -43,7 +44,7 @@ public class Table extends Application {
 
         //db
         connectToDB();
-
+         Label l  =new Label ("مع تحيـــــات المعتمد على الله     الله اكبر و سبحان الله والحمد لله ") ; 
         Button btnAdd = new Button("   Add   ");
         Button btn1 = new Button("  Search  ");
         Button btn2 = new Button("  Delete  ");
@@ -72,6 +73,12 @@ public class Table extends Application {
             Search search = new Search();
 
         });
+        btn2.setOnAction(e-> 
+        {
+        
+            Delete delete = new Delete();
+            connectToDB();
+        });
 
         TableColumn<Item, String> mon = new TableColumn<>("Month");
         mon.setMinWidth(100);
@@ -94,6 +101,10 @@ public class Table extends Application {
         t.getColumns().addAll(mon, day, type, cost);
 
         VBox root = new VBox();
+        
+         //style
+        root.setStyle("-fx-background-color: linear-gradient(to bottom, #33ccff 0%, #ff99cc 100%)" );
+        
 
         HBox h = new HBox();
         h.setSpacing(10);
@@ -106,7 +117,7 @@ public class Table extends Application {
         hT.setSpacing(10);
         hT.setAlignment(Pos.CENTER);
         hT.setPadding(new Insets(10));
-        root.getChildren().addAll(h, hT, t);
+        root.getChildren().addAll(h, hT, t ,l );
 
         Scene scene = new Scene(root, 800, 250);
 

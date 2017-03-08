@@ -71,12 +71,15 @@ public class Search {
         toS = new Label("enter (month-day) to search ::  0 to all days  ::  ");
         toSum = new Label("enter (month-day) to sum of cost ::  0 to all days  ::  "); 
         sumM = new Label("your spent is  :: ");
+        
+            Label l  =new Label ("مع تحيـــــات المعتمد على الله     الله اكبر و سبحان الله والحمد لله ") ; 
+     
         Button s = new Button(":: search  :: ");
         Button s2 = new Button(" :: sum of costs :: ");
 
         //actions 
         s.setOnAction((ActionEvent e) -> {
-            //as it will sent to sql as string 
+            //as it w String x = monthT.getText()ill sent to sql as string 
             String x = monthT.getText();
             String y = dayT.getText();
 
@@ -112,7 +115,9 @@ public class Search {
         h2.setPadding(new Insets(10));
         h2.getChildren().addAll( toSum, monSum, dayS, sumM, s2);
 
-        root.getChildren().addAll(h, h2, t);
+        root.getChildren().addAll(h, h2, t , l );
+        root.setStyle("-fx-background-color: linear-gradient(to bottom, #ffccff 0%, #ff9900 100%)" );
+        
 
         Scene sce = new Scene(root, 1000, 150);
 

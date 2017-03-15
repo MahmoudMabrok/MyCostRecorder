@@ -132,7 +132,7 @@ public class Table extends Application {
 
         // Read From the DataBase and add it to the TableView
         try {
-            Connection conn = DriverManager.getConnection("jdbc:sqlite:Items.db");
+            Connection conn = DriverManager.getConnection("jdbc:sqlite:db/Items.db");
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM item ");
 
@@ -163,7 +163,7 @@ public class Table extends Application {
             double cost = Double.parseDouble(costT);
 
             //connectionand to  Add 
-            Connection conn = DriverManager.getConnection("jdbc:sqlite:Items.db");
+            Connection conn = DriverManager.getConnection("jdbc:sqlite:db/Items.db");
             Statement stmt = conn.createStatement();
             stmt.executeUpdate("INSERT INTO item VALUES(" + month + "," + day + ",'"
                     + typeT + "'," + cost + ")");

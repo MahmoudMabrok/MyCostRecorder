@@ -112,7 +112,7 @@ public class Delete {
             sql = "delete from item where month=" + month + " and day ="+day+"";
         
         try {
-        Connection c = DriverManager.getConnection("jdbc:sqlite:Items.db");
+        Connection c = DriverManager.getConnection("jdbc:sqlite:db/Items.db");
         Statement st = c.createStatement();
         st.executeUpdate(sql);
         status.setText(" successfuly  deleted   ");

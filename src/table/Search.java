@@ -119,7 +119,7 @@ public class Search {
         root.setStyle("-fx-background-color: linear-gradient(to bottom, #ffccff 0%, #ff9900 100%)" );
         
 
-        Scene sce = new Scene(root, 1000, 150);
+        Scene sce = new Scene(root, 1000, 300);
 
         window.setScene(sce);
         window.setTitle("search in Log ");
@@ -152,7 +152,7 @@ public class Search {
         
         
         try {
-            Connection c = DriverManager.getConnection("jdbc:sqlite:Items.db");
+            Connection c = DriverManager.getConnection("jdbc:sqlite:db/Items.db");
             Statement st = c.createStatement();
 
             //select a row of specific month 
@@ -196,7 +196,7 @@ public class Search {
 
         try {
             Statement st;
-            Connection c = DriverManager.getConnection("jdbc:sqlite:Items.db"); 
+            Connection c = DriverManager.getConnection("jdbc:sqlite:db/Items.db"); 
                 st = c.createStatement();
                 //select a row of specific month
                 ResultSet rs = st.executeQuery(sql);

@@ -37,17 +37,20 @@ import javafx.stage.Stage;
 public class Table extends Application {
 
     TableView<Item> t;
+
     ObservableList<Item> items = FXCollections.observableArrayList();
 
     @Override
     public void start(Stage primaryStage) {
 
         //db
-        connectToDB();
-         Label l  =new Label ("مع تحيـــــات المعتمد على الله     الله اكبر و سبحان الله والحمد لله ") ; 
+        //showDatafromDB();
+        Label l = new Label("مع تحيـــــات المعتمد على الله     الله اكبر و سبحان الله والحمد لله ");
         Button btnAdd = new Button("   Add   ");
         Button btn1 = new Button("  Search  ");
         Button btn2 = new Button("  Delete  ");
+        Button btnShow = new Button("  Show Data  ");
+        Button btnCreate = new Button("  Craete DB  ");
 
         TextField monthT = new TextField();
         monthT.setPromptText("Month");
@@ -58,14 +61,16 @@ public class Table extends Application {
         TextField costT = new TextField();
         costT.setPromptText("cost");
 
-        //Action 
+        //check if data base is created if yes disable button that create it 
+        //Actions 
         btnAdd.setOnAction((ActionEvent e) -> {
             try {
                 addItem(monthT.getText(), dayT.getText(), typeT.getText(), costT.getText());
             } catch (SQLException ex) {
                 Logger.getLogger(Table.class.getName()).log(Level.SEVERE, null, ex);
             }
-            connectToDB();
+            //update data on table after insert(add)  operation 
+            showDatafromDB();
         });
 
         btn1.setOnAction(e -> {
@@ -73,11 +78,21 @@ public class Table extends Application {
             Search search = new Search();
 
         });
-        btn2.setOnAction(e-> 
-        {
-        
+        btn2.setOnAction(e -> {
+
             Delete delete = new Delete();
-            connectToDB();
+            //update data on table after delete operation 
+            showDatafromDB();
+        });
+
+        btnCreate.setOnAction(e -> {
+
+            createDB();
+
+        });
+
+        btnShow.setOnAction(e -> {
+            showDatafromDB();
         });
 
         TableColumn<Item, String> mon = new TableColumn<>("Month");
@@ -101,32 +116,33 @@ public class Table extends Application {
         t.getColumns().addAll(mon, day, type, cost);
 
         VBox root = new VBox();
-        
-         //style
-        root.setStyle("-fx-background-color: linear-gradient(to bottom, #33ccff 0%, #ff99cc 100%)" );
-        
 
+        //style
+        root.setStyle("-fx-background-color: linear-gradient(to bottom, #33ccff 0%, #ff99cc 100%)");
+
+        //main controls
         HBox h = new HBox();
         h.setSpacing(10);
         h.setAlignment(Pos.CENTER);
         h.setPadding(new Insets(10));
-        h.getChildren().addAll(btn1, btn2);
-        //Text fieljd to add 
+        h.getChildren().addAll(btnCreate, btnShow, btn1, btn2);
+
+        //Text field to add  data 
         HBox hT = new HBox();
         hT.getChildren().addAll(monthT, dayT, typeT, costT, btnAdd);
         hT.setSpacing(10);
         hT.setAlignment(Pos.CENTER);
         hT.setPadding(new Insets(10));
-        root.getChildren().addAll(h, hT, t ,l );
+        root.getChildren().addAll(h, hT, t, l);
 
         Scene scene = new Scene(root, 800, 250);
 
-        primaryStage.setTitle("My Month Log");
+        primaryStage.setTitle(" MyCostRecorder ");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
-    public void connectToDB() {
+    public void showDatafromDB() {
 
         items.clear();
 
@@ -173,6 +189,24 @@ public class Table extends Application {
 
         } catch (NumberFormatException e) {
             System.out.println(e.getMessage());
+        }
+
+    }
+
+    public void createDB() {
+
+        try {
+            Connection conn = DriverManager.getConnection("jdbc:sqlite:db/Items.db");
+            Statement st = conn.createStatement();
+
+            //create a table if it not exist 
+            st.executeUpdate("create table if not exist  item ( month int  , day int  , type varchar(60) , cost  double  )");
+
+            conn.close();
+            st.close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Table.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }

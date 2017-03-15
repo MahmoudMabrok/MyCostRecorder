@@ -198,7 +198,7 @@ public class Search {
             Statement st;
             Connection c = DriverManager.getConnection("jdbc:sqlite:db/Items.db"); 
                 st = c.createStatement();
-                //select a row of specific month
+                
                 ResultSet rs = st.executeQuery(sql);
 
                 sumM.setText("oh you spent " + rs.getString(1) + ", you should save your money  ^^^^");

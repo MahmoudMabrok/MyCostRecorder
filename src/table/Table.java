@@ -43,7 +43,7 @@ public class Table extends Application {
     @Override
     public void start(Stage primaryStage) {
 
-        //db
+        
         //showDatafromDB();
         Label l = new Label("مع تحيـــــات المعتمد على الله     الله اكبر و سبحان الله والحمد لله ");
         Button btnAdd = new Button("   Add   ");
@@ -61,7 +61,6 @@ public class Table extends Application {
         TextField costT = new TextField();
         costT.setPromptText("cost");
 
-        //check if data base is created if yes disable button that create it 
         //Actions 
         btnAdd.setOnAction((ActionEvent e) -> {
             try {
@@ -199,6 +198,7 @@ public class Table extends Application {
             Connection conn = DriverManager.getConnection("jdbc:sqlite:db/Items.db");
             Statement st = conn.createStatement();
 
+            
             //create a table if it not exist 
             st.executeUpdate("create table if not exist  item ( month int  , day int  , type varchar(60) , cost  double  )");
 
